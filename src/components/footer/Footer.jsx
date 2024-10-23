@@ -1,7 +1,9 @@
-export default function Footer(){
+const Footer = () => {
     return (
-        <div className="layout_footer">
-        &copy; React Boocamp 
-        </div>
-    )
-}
+      <footer className="layout_footer">
+        &copy; React Bootkamp {new Date().getFullYear()}
+      </footer>
+    );
+  };
+  
+  export default Footer;

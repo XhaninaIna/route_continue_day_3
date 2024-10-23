@@ -6,17 +6,16 @@ import {BrowserRouter} from "react-router-dom";
 function App() {
   return (
     <BrowserRouter>
-    <div className="App">
-     <div>
-      <b>Hello</b> <br /> Refer to{' '}
-      <a href="https://reactrouter.com/en/main" target="_blank">
-        React router docs
-      </a>{' '}
-    </div>
-     <Layout>
-      <Routes/>
-      </Layout>
-    </div>
+      <div>
+        <b>Hello</b> <br /> Refer to{' '}
+        <a href="https://reactrouter.com/en/main" target="_blank">
+          React router docs
+        </a>{' '}
+        for documentations{' '}
+        <Layout>
+          <Routes />
+        </Layout>
+      </div>
     </BrowserRouter>
   );
 }

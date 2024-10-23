@@ -5,7 +5,7 @@ const user={
     email:"xhaninacela2@gmail.com",
     phone:"0696696448"
 }
-export default function HomePage(){
+export default function LoginPage(){
     
     const navigate=useNavigate();
     function handleClick(){

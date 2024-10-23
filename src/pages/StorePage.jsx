@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { useEffect } from 'react';
+import React, { useState,useEffect } from 'react';
 import {useNavigate, useLocation} from "react-router-dom";
 import Products from "../components/products/Products";
 const productData=[
@@ -26,20 +25,21 @@ const productData=[
 
 export default function StorePage() {
     const [user,setUser]=useState(null);
+    const navigate= useNavigate();
     const  location = useLocation();
-    const navigation= useNavigate();
+    
     // useSearch params me ?
    
     // hook qe merr userin sa here hapet faqja
     console.log(location);
     useEffect(()=>{
-       if(!location.state) navigation("/login");
+       if(!location.state) navigate("/login");
        setUser(location.state);
 },[location,user]);
     // console.log("user", user);
   return (
     <div>
-     <button onClick={()=>navigation("/")}>Layout</button>
+     <button onClick={()=>navigate("/")}>Logout</button>
      {
         productData.map((product)=>(
             <Products id={product.id} name={product.name} description={product.description} price={product.price} key={product.id}/>

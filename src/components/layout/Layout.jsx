@@ -1,14 +1,16 @@
 /* eslint-disable react/prop-types */
+import Footer from '../footer/Footer';
+import Nav from '../nav/Nav';
 import './layout.css';
 
 const Layout = props => {
   return (
     <div className="layout">
-      <nav className="layout_nav">this is the nav</nav>
+      {/* Navbar */}
+      <Nav />
       {props.children}
-      <footer className="layout_footer">
-        &copy; React Bootkamp {new Date().getFullYear()}
-      </footer>
+      {/* Footer  */}
+      <Footer />
     </div>
   );
 };
