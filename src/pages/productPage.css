@@ -1,0 +1,15 @@
+.product-page {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .product-page h1 {
+    margin-bottom: 15px;
+  }
+  
+  .product-page p {
+    margin: 5px 0;
+  }
+  

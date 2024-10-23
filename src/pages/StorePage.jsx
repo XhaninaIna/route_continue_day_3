@@ -1,51 +1,106 @@
-import React, { useState,useEffect } from 'react';
-import {useNavigate, useLocation} from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
 import Products from "../components/products/Products";
-const productData=[
-    {
-        id: 1,
-        name: "product1",
-        description:"lorem1",
-        price:"$34",
-    },
-    {
-        id: 2,
-        name: "product2",
-        description:"lorem2",
-        price:"$50",
-    },
-    {
-        id: 3,
-        name: "product3",
-        description:"lorem3",
-        price:"$98",
-    },
-    
-]
-
+import ProductFilter from "../components/products/productFilter";
+import "./storepage.css";
+const productData = [
+  {
+    id: 1,
+    name: "Red T-Shirt",
+    description: "A comfortable red t-shirt made from 100% cotton.",
+    price: "$34",
+    color: "red",
+  },
+  {
+    id: 2,
+    name: "Blue Jeans",
+    description: "Classic blue denim jeans with a relaxed fit.",
+    price: "$50",
+    color: "blue",
+  },
+  {
+    id: 3,
+    name: "Red Sneakers",
+    description: "Stylish red sneakers perfect for everyday wear.",
+    price: "$98",
+    color: "red",
+  },
+  {
+    id: 4,
+    name: "Green Hoodie",
+    description: "Warm and cozy green hoodie for chilly days.",
+    price: "$45",
+    color: "green",
+  },
+  {
+    id: 5,
+    name: "Black Backpack",
+    description: "Durable black backpack with multiple compartments.",
+    price: "$60",
+    color: "black",
+  },
+  {
+    id: 6,
+    name: "White Cap",
+    description: "Classic white cap with adjustable strap.",
+    price: "$25",
+    color: "white",
+  },
+];
 export default function StorePage() {
-    const [user,setUser]=useState(null);
-    const navigate= useNavigate();
-    const  location = useLocation();
-    
-    // useSearch params me ?
-   
-    // hook qe merr userin sa here hapet faqja
-    console.log(location);
-    useEffect(()=>{
-       if(!location.state) navigate("/login");
-       setUser(location.state);
-},[location,user]);
-    // console.log("user", user);
-  return (
-    <div>
-     <button onClick={()=>navigate("/")}>Logout</button>
-     {
-        productData.map((product)=>(
-            <Products id={product.id} name={product.name} description={product.description} price={product.price} key={product.id}/>
-        ))
-     }
-    </div>
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [searchParams] = useSearchParams();
 
-  )
+  // merret color dhe sort nga url
+  const queryColor = searchParams.get("color") || ""; 
+  const querySort = searchParams.get("sort") || "asc"; 
+
+  useEffect(() => {
+   
+    if (!user) {
+      
+      if (!location.state && !queryColor && !querySort) {
+        navigate("/login");
+      } else if (location.state) {
+        setUser(location.state); 
+      }
+    }
+  }, [location, navigate, user, queryColor, querySort]);
+
+  // filtrohen  produktet bazuar ne query
+  const filteredProducts = productData
+    .filter((product) => {
+      return queryColor ? product.color === queryColor : true;
+    })
+    .sort((a, b) => {
+      if (querySort === "asc") {
+        return a.name.localeCompare(b.name); 
+      } else if (querySort === "desc") {
+        return b.name.localeCompare(a.name); 
+      }
+      return 0; 
+    });
+
+  return (
+    <div className="store-page">
+    <button className="logout-button" onClick={() => navigate("/")}>Logout</button>
+    <ProductFilter />
+    {filteredProducts.length > 0 ? (
+      filteredProducts.map((product) => (
+        <Products
+          id={product.id}
+          name={product.name}
+          description={product.description}
+          price={product.price}
+          color={product.color}
+          key={product.id}
+        />
+      ))
+    ) : (
+      <p>No products found.</p>
+    )}
+  </div>
+  );
 }

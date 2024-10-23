@@ -1,0 +1,29 @@
+/* nav.css */
+.layout_nav {
+    display: flex;
+    justify-content: space-around; /* Distributes space evenly between links */
+    align-items: center;
+    background-color: #282c34; /* Dark background for contrast */
+    padding: 15px 20px; /* Padding for top/bottom and left/right */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  }
+  
+  .layout_nav .link {
+    color: #ffffff; /* White text color for visibility */
+    text-decoration: none; /* Removes underline */
+    font-size: 1.1rem; /* Slightly larger font for readability */
+    padding: 10px 15px; /* Padding for touch target size */
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s, transform 0.2s; /* Smooth transition for effects */
+  }
+  
+  .layout_nav .link:hover {
+    background-color: #4a90e2; /* Light blue background on hover */
+    transform: scale(1.05); /* Slight scaling effect on hover */
+  }
+  
+  .layout_nav .link:active {
+    background-color: #357ab8; /* Darker blue when the link is active */
+    transform: scale(1); /* Reset scaling on active */
+  }
+  

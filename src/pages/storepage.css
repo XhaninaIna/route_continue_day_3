@@ -1,0 +1,13 @@
+.store-page {
+    padding: 20px;
+  }
+  
+  .logout-button {
+    padding: 10px 15px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    cursor: pointer
+  }
