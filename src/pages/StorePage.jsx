@@ -98,12 +98,12 @@ export default function StorePage() {
       {filteredProducts.length > 0 ? (
         filteredProducts.map((product) => (
           <Products
+            key={product.id}
             id={product.id}
             name={product.name}
             description={product.description}
             price={product.price}
             color={product.color}
-            key={product.id}
           />
         ))
       ) : (
