@@ -3,6 +3,7 @@ import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
 import Products from "../components/products/Products";
 import ProductFilter from "../components/products/productFilter";
 import "./storepage.css";
+
 const productData = [
   {
     id: 1,
@@ -47,60 +48,67 @@ const productData = [
     color: "white",
   },
 ];
+
 export default function StorePage() {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  // merret color dhe sort nga url
-  const queryColor = searchParams.get("color") || ""; 
-  const querySort = searchParams.get("sort") || "asc"; 
+  // merr ngjyren dhe sort nga url
+  const queryColor = searchParams.get("color") || "";
+  const querySort = searchParams.get("sort") || "";
 
   useEffect(() => {
-   
     if (!user) {
-      
       if (!location.state && !queryColor && !querySort) {
         navigate("/login");
       } else if (location.state) {
-        setUser(location.state); 
+        setUser(location.state);
       }
     }
   }, [location, navigate, user, queryColor, querySort]);
 
-  // filtrohen  produktet bazuar ne query
+  //filtrimi produkteve sipas query
   const filteredProducts = productData
     .filter((product) => {
       return queryColor ? product.color === queryColor : true;
     })
     .sort((a, b) => {
-      if (querySort === "asc") {
-        return a.name.localeCompare(b.name); 
-      } else if (querySort === "desc") {
-        return b.name.localeCompare(a.name); 
+      if (!querySort) {
+        return a.id - b.id;
       }
-      return 0; 
+      const priceA = parseFloat(a.price.replace("$", ""));
+      const priceB = parseFloat(b.price.replace("$", ""));
+
+      if (querySort === "asc") {
+        return priceA - priceB;
+      } else if (querySort === "desc") {
+        return priceB - priceA;
+      }
+      return 0;
     });
 
   return (
     <div className="store-page">
-    <button className="logout-button" onClick={() => navigate("/")}>Logout</button>
-    <ProductFilter />
-    {filteredProducts.length > 0 ? (
-      filteredProducts.map((product) => (
-        <Products
-          id={product.id}
-          name={product.name}
-          description={product.description}
-          price={product.price}
-          color={product.color}
-          key={product.id}
-        />
-      ))
-    ) : (
-      <p>No products found.</p>
-    )}
-  </div>
+      <button className="logout-button" onClick={() => navigate("/")}>
+        Logout
+      </button>
+      <ProductFilter />
+      {filteredProducts.length > 0 ? (
+        filteredProducts.map((product) => (
+          <Products
+            id={product.id}
+            name={product.name}
+            description={product.description}
+            price={product.price}
+            color={product.color}
+            key={product.id}
+          />
+        ))
+      ) : (
+        <p>No products found.</p>
+      )}
+    </div>
   );
 }
