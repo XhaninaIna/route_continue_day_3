@@ -40,7 +40,7 @@ const ProductFilter = () => {
         onChange={handleSortChange}
         className="filter-select"
       >
-        <option value="asc">Sort by Name (Ascending)</option>
+        <option value="asc">Sort by Price (Ascending)</option>
         <option value="desc">Sort by Price (Descending)</option>
       </select>
       <buuton onClick={handleClear} className="filter-select">
